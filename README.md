@@ -10,16 +10,16 @@ Clone this repository to local directory
 Then run the command in the main directory:
 
 ```
-	npm install
+npm install
 ```
 
 Then go into the client folder
 ```
-	cd client
+cd client
 ```
 and run
 ```
-	npm install
+npm install
 ```
 again.
 
