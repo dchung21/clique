@@ -23,3 +23,10 @@ npm install
 ```
 again.
 
+
+### Running
+To run, run the following command
+
+```
+npm run dev
+```
