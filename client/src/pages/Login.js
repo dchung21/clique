@@ -1,5 +1,5 @@
 import React from 'react';
-import { FIREBASE_CONFIG } from './config.js';
+import { FIREBASE_CONFIG } from '../config.js';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
 import 'firebase/auth';

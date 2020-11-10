@@ -1,10 +1,10 @@
 import './App.css';
-import LoginPage from './Login.js';
-import Home from './Home.js';
-import Profile from './Profile.js';
-import Convos from './Convos.js';
-import Match from './Match.js'
-import Chat from './Chat.js'
+import LoginPage from './pages/Login.js';
+import Home from './pages/Home.js';
+import Profile from './pages/Profile.js';
+import Convos from './pages/Convos.js';
+import Match from './pages/Match.js'
+import Chat from './pages/Chat.js'
 
 import {
   BrowserRouter as Router,

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
-import { FIREBASE_CONFIG } from './config.js';
+import { FIREBASE_CONFIG } from '../config.js';
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
