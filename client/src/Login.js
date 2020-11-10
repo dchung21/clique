@@ -1,12 +1,12 @@
 import React from 'react';
+import { FIREBASE_CONFIG } from './config.js';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const { REACT_APP_FIREBASE_CONFIG } = process.env;
-
+console.log(FIREBASE_CONFIG);
 if (!firebase.apps.length) {
-	firebase.initializeApp(REACT_APP_FIREBASE_CONFIG);
+	firebase.initializeApp(FIREBASE_CONFIG);
 }
 
 const uiConfig = {
