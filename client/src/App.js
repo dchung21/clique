@@ -1,6 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import LoginPage from './Login.js';
+import Profile from './Profile.js';
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,16 +11,17 @@ import {
 } from "react-router-dom";
 
 function App() {
+
   return (
     <Router>
       <div className="App">
         <header className="App-header">
           <Switch>
             <Route path="/signedIn">
-              <SignedInPage />
+              <Profile />
             </Route>
             <Route path="/">
-              <LoginPage />
+				<LoginPage />
             </Route>
         	</Switch>
         </header>
@@ -27,8 +30,6 @@ function App() {
   );
 }
 
-function SignedInPage() {
-	return <h2>You successfully signed in</h2>;
-}
+
 
 export default App;
