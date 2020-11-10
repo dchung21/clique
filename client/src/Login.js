@@ -17,11 +17,12 @@ const uiConfig = {
   ]
 };
 
-const approvedDomain = "edu";
+const approvedDomain = ".edu"; // We only allow people with emails ending in ".edu" to register for an account.
 
-const testEmail = "test@mcronalds.edu"; // will be replaced with something grabbing email entered from sign up page
+const email = "test@mcronalds.edu"; // will be replaced with something grabbing email entered from sign up page
+// is the email entered on the account registration page
 
-if (testEmail.split(".")[1] === approvedDomain) { // this split may not work if their domain has multiple periods, consider extracting last three characters instead
+if (email.toLowerCase().endsWith(approvedDomain)) {
 	//create account for them
 } else {
 	//display error saying they should be registering with only an .edu address
