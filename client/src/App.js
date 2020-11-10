@@ -1,13 +1,15 @@
 import './App.css';
 import LoginPage from './Login.js';
-import Home from './Home.js'
+import Home from './Home.js';
 import Profile from './Profile.js';
+import Convos from './Convos.js';
+import Match from './Match.js'
+import Chat from './Chat.js'
 
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 function App() {
@@ -21,13 +23,16 @@ function App() {
               <Home />
             </Route>
             <Route path='/match'>
-              <Matching />
+              <Match />
             </Route>
             <Route path='/convos'>
               <Convos />
             </Route>
             <Route path='/profile'>
               <Profile />
+            </Route>
+            <Route path='/chat'>
+              <Chat />
             </Route>
             <Route path="/">
 				      <LoginPage />
@@ -38,11 +43,6 @@ function App() {
     </Router>
   );
 }
-
-
-const Matching = () => <h2>Matching Page</h2>
-
-const Convos = () => <h2>Convos Page</h2>
 
 
 

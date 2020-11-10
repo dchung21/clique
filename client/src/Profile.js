@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -34,7 +35,7 @@ export default function Profile(props) {
 
 	return (
 		<div>
-			<h2>You successfully signed in user</h2>
+			<Link to='/home'>Home</Link>
 			<form>
 				<input type="file" onChange = {onChange} />
 			</form>
