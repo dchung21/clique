@@ -10,7 +10,7 @@ if (!firebase.apps.length) {
 
 const uiConfig = {
 	signInFlow: 'popup',
-	signInSuccessUrl: '/signedIn',
+	signInSuccessUrl: '/home',
   signInOptions: [
 	firebase.auth.EmailAuthProvider.PROVIDER_ID
   ]
