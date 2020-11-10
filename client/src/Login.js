@@ -17,6 +17,16 @@ const uiConfig = {
   ]
 };
 
+const approvedDomain = "edu";
+
+const testEmail = "test@mcronalds.edu"; // will be replaced with something grabbing email entered from sign up page
+
+if (testEmail.split(".")[1] === approvedDomain) { // this split may not work if their domain has multiple periods, consider extracting last three characters instead
+	//create account for them
+} else {
+	//display error saying they should be registering with only an .edu address
+}
+
 export default function LoginPage (props) {
 	return (
 		<div>
