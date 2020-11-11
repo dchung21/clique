@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container'
 export default function Match() {
 
 	return (
-        <Container className="d-flex justify-content-center align-items-center min-vh-100">
+        //<Container className="d-flex justify-content-center align-items-center min-vh-100">
             <div>
                 <Button variant = "primary">
                     <Link to='/home'>Home</Link>
@@ -17,7 +17,7 @@ export default function Match() {
                 </Button>{' '}
                 <Button variant = "outline-secondary">next</Button>{' '}
             </div>
-        </Container>
+        //</Container>
 	)
     
     
