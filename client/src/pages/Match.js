@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
 
 export default function Match() {
-    style = {
-
-    }
 
 	return (
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
