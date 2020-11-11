@@ -15,7 +15,7 @@ export default function Match() {
                 <Button variant = "primary">
                     <Link to='/chat'>Chat</Link>
                 </Button>{' '}
-                <Button variant = "outline-secondary">next</Button>
+                <Button variant = "outline-secondary">next</Button>{' '}
             </div>
         </Container>
 	)
