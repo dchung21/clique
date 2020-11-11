@@ -38,7 +38,3 @@ export default function LoginPage (props) {
 		</Container>
 	);
 }
-
-{/* <h1>My app</h1>
-<p>Sign in</p>
-<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/> */}
