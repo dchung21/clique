@@ -8,6 +8,7 @@ import { FIREBASE_CONFIG } from '../config.js';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import Image from 'react-bootstrap/Image'
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
@@ -139,24 +140,16 @@ export default function Profile(props) {
 		event.preventDefault();
 	}
 
-
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
 			<div className="w-75">
 				<Link to='/home'>Home</Link>
-				<h3>Welcome user: {uid}</h3>
-				<img src={imageUrl.url} />
-				<h4>{displayBio}</h4>
-				<Form onSubmit={handleImageUpload}>
-					<Form.Group controlId="formImage">
-						<Form.Label>Upload an image (not of yourself)</Form.Label>
-						<Form.File ref = {ref} onChange = {handleImageChange} />
-						<Button variant="primary" type="submit">
-							Upload
-						</Button>
-					</Form.Group>
-				</Form>
-				<Form onSubmit={handleBioUpload}>
+				<h3 className="text-center py-3">Welcome user: {uid}</h3>
+				<div className="d-flex justify-content-center">
+					<Image className="w-50 h-50" src={imageUrl.url} roundedCircle fluid/>
+				</div>
+				<h4 className="text-center py-3">{displayBio}</h4>
+				<Form onSubmit={handleBioUpload} className="py-3">
 					<Form.Group controlId="formTextarea">
 						<Form.Label>Write something that describes you (10 words max)</Form.Label>
 						<Form.Control as="textarea" placeholder="Your 10 words!" rows={3} value={bio} onChange={handleTextChange} />
@@ -165,8 +158,18 @@ export default function Profile(props) {
 						Submit
 					</Button>
 				</Form>
+				<Form onSubmit={handleImageUpload}>
+					<Form.Group controlId="formImage" className="py-3">
+						<Form.Label>Upload an image (not of yourself)</Form.Label>
+						<Form.Row>
+							<Form.File ref = {ref} onChange = {handleImageChange}/>
+							<Button variant="primary" type="submit">
+								Upload
+							</Button>
+						</Form.Row>
+					</Form.Group>
+				</Form>
 			</div>
 		</Container>
-	)
-	
+	);
 }
