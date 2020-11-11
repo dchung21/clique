@@ -10,11 +10,11 @@ export default function Match() {
             <div>
                 <Button variant = "primary">
                     <Link to='/home'>Home</Link>
-                </Button>
+                </Button>{' '}
                 <h2>Matching Page</h2>
                 <Button variant = "primary">
                     <Link to='/chat'>Chat</Link>
-                </Button>
+                </Button>{' '}
                 <Button variant = "outline-secondary">next</Button>
             </div>
         </Container>
