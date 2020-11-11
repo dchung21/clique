@@ -74,7 +74,6 @@ export default function Profile(props) {
 			})
 	}
 
-	//TODO plus delete previous messages
 	//this will upload bio to cloud firestore
 	const handleBioUpload = (event) => {
 
@@ -87,15 +86,41 @@ export default function Profile(props) {
 			db.settings({
 				timestampsInSnapshots: true
 			});
-			const userRef = db.collection("users").add({
-				uid: uid,
-				bio: bio
-			});
+
+			const bios = db.collection("users");
+
+			// get all bios with uid == uid
+			bios.where("uid", "==", uid)
+				.get()
+				.then(querySnapshot => {
+					let count = 0;
+					// go through query results, updating the count each time
+					querySnapshot.forEach(doc => {
+						console.log("Updated bio");
+						bios.doc(doc.id).set({
+							uid: uid,
+							bio: bio
+						})
+						count++;
+					})
+
+					// bad, too many bios
+					if(count > 1) {
+						console.log("Wierd, you seem to have more than one bio?");
+					} else if (count == 0) { // no bio yet, so add it in
+						console.log("Added bio");
+						bios.add({
+							uid: uid,
+							bio: bio
+						});
+					}
+				}).catch(error => {
+					console.log("Error getting the previous bios: ", error);
+				});
 		}
 
 		//prevent from reloading page on submission
 		event.preventDefault();
-
 	}
 
 
