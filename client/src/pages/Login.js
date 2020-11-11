@@ -28,6 +28,55 @@ if (email.toLowerCase().endsWith(approvedDomain)) {
 	//display error saying they should be registering with only an .edu address
 }
 
+function SignIn() {
+	// Get elements.
+	const txtEmail = document.getElementById('txtEmail');
+	const txtPassword = document.getElementById('txtPassword');
+	const btnLogin = document.getElementById('btnLogin');
+	const btnSignup = document.getElementById('btnSignUp');
+	const btnLogout = document.getElementById('btnLogout');
+
+	// Add login event.
+	btnLogin.addEventListener('click', e => {
+		// Get email and password.
+		const email = txtEmail.value;
+		const password = txtPassword.value;
+		const auth = firebase.auth();
+
+		// Sign in.
+		const promise = auth.signInWithEmailAndPassword(email, password);
+		promise.catch(e => console.log(e.message));
+	});
+
+	btnSignup.addEventListener('click', e => { 
+		// Get email and password.
+
+		// TODO: Check that email is legit .edu email.
+		const email = txtEmail.value;
+		const password = txtPassword.value;
+		const auth = firebase.auth();
+
+		// Sign in.
+		const promise = auth.createUserWithEmailAndPassword(email, password);
+		promise.catch(e => console.log(e.message));
+	});
+
+	btnLogout.addEventListener('click', e => {
+		firebase.auth.signOut();
+	})
+
+	// Add a realtime listener.
+	firebase.auth().onAuthStateChanged(firebaseUser => {
+		if (firebaseUser) {
+			console.log(firebaseUser);
+			btnLogout.classList.remove('hide');
+		} else {
+			console.log("not logged in");
+			btnLogout.classList.add('hide');
+		}
+	});
+}
+
 export default function LoginPage (props) {
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
