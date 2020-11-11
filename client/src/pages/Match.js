@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import HomeIcon from '@material-ui/icons/Home'; 
+import ChatIcon from '@material-ui/icons/Chat';
 
 export default function Match() {
     function Header() {
@@ -13,13 +14,17 @@ export default function Match() {
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
             <div>
                 <Link to='/home'>
-                    <Button variant = "primary"><HomeIcon/></Button>
+                    <Button variant = "primary">
+                        <HomeIcon />
+                    </Button>
                 </Link>
 
                 <h2>Matching Page</h2>
 
                 <Link to='/chat'>
-                    <Button variant = "primary">Chat</Button>
+                    <Button variant = "primary">
+                        <ChatIcon />
+                    </Button>
                 </Link>
 
                 <Button variant = "outline-secondary">next</Button>{' '}
