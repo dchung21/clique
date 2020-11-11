@@ -8,7 +8,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import IconButton from '@material-ui/core/IconButton';
 import "./Button.css"
 
-//export default function Match() {
+export default function Match() {
     function Header() {
         <div className = "button">
             <Link to='/home'>
@@ -36,7 +36,26 @@ import "./Button.css"
         </div>
     }
 
-	//return (
+	return (
+        <div>
+            <div className = "button">
+                <Link to='/home'>
+                    <IconButton>
+                        <HomeIcon />
+                    </IconButton>
+                </Link>
+            </div>
+            <div className = "button">
+            <Link to='/chat'>
+                <IconButton>
+                    <ChatIcon />
+                </IconButton>
+            </Link>
+
+            <NavigateNextIcon/>
+            </div>
+
+        </div>
         //<Container className="d-flex justify-content-center align-items-center min-vh-100">
             //<div className = "button">
                 //<Link to='/chat'>
@@ -48,9 +67,9 @@ import "./Button.css"
                 //<Button variant = "outline-secondary">next</Button>{' '}
             //</div>
         //</Container>
-    //)
+    )
 
     //<h2>Matching Page</h2>
     
     
-//}
+}
