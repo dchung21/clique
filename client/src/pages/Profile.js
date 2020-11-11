@@ -31,7 +31,7 @@ export default function Profile(props) {
 					storage.ref("pix").child(user.uid).getDownloadURL().then(url => {
 						setImageUrl({url});
 						//get bio after getting image
-						fs.collection("users").where("uid", "==", uid)
+						fs.collection("users").where("uid", "==", user.uid)
 						.get()
 						.then(function(querySnapshot) {
 							querySnapshot.forEach(function(doc) {
