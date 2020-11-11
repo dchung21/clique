@@ -3,21 +3,22 @@ import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
+import 'firebase/firestore';
 import { FIREBASE_CONFIG } from '../config.js';
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
+	const [imageUrl, setImageUrl] = useState("");
 	const [bio, setBio] = useState("");
+	const [uid, setUid] = useState("");
 
-	//this is probably hacky code and will be prone to crashing
-	const auth = firebase.auth();
-	/////////	
+
 
 	//reference to storage service
 	let storage = firebase.storage();
 
 	//on selection of image from the user
-	const onChange = (event) => {
+	const handleImageChange = (event) => {
 		if (event.target.files[0]) {
 			const image = event.target.files[0];
 			setImage(image);	
@@ -31,12 +32,26 @@ export default function Profile(props) {
 
 	//TODO 
 	//this will upload image to firebase storage, I want to hash it with userID
-	const handleUpload = (event) => {
+	const handleImageUpload = (event) => {
 		//prevent from reloading page on submission
 		event.preventDefault();
 
 		console.log("Starting upload");
-		const upload = storage.ref(`pix/test`).put(image);
+		const upload = storage.ref(`pix/${uid}`).put(image);
+		upload.on("state_changed",
+			(snapShot) => {
+				console.log(snapShot);
+			}, (err) => {
+				console.log(err);
+			}, () => {
+				storage.ref("pix").child(`${uid}`).getDownloadURL()
+				.then(url => {
+					setImageUrl({url});
+					setImage("");
+					event.target.value = null;
+					console.log("done uploading");
+				})
+			})
 	}
 
 	//TODO
@@ -52,15 +67,39 @@ export default function Profile(props) {
 
 		//prevent from reloading page on submission
 		event.preventDefault();
+		const db = firebase.firestore();
+		db.settings({
+			timestampsInSnapshots: true
+		});
+		const userRef = db.collection("users").add({
+			uid: uid,
+			bio: bio
+		});
+
 	}
 
+	//I think there should be a better way to verify that the user is always logged in to render component
+	//we need to redirect/do something different if user is not logged in.
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (user != null) {
+			console.log(user.uid);
+			setUid(user.uid);
+		}
+		else
+			console.log("x");
+	});
+
+
+	
 	return (
 		<div>
 			<Link to='/home'>Home</Link>
+			<h1>Welcome user: {uid}</h1>
 			<h2>Upload an image!</h2>
-			<form>
-				<input type="file" onChange = {onChange} />
-			</form>
+				<form onSubmit={handleImageUpload}>
+					<input type="file" onChange = {handleImageChange} />
+					<button>upload</button>
+				</form>
 			<h2>Write something that describes you (10 words max)</h2>
 			<form onSubmit={handleBioUpload}>
 				<textarea value={bio} onChange={handleTextChange} />
