@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
+import 'firebase/firestore';
 import { FIREBASE_CONFIG } from '../config.js';
 
 export default function Profile(props) {
@@ -66,6 +67,15 @@ export default function Profile(props) {
 
 		//prevent from reloading page on submission
 		event.preventDefault();
+		const db = firebase.firestore();
+		db.settings({
+			timestampsInSnapshots: true
+		});
+		const userRef = db.collection("users").add({
+			uid: uid,
+			bio: bio
+		});
+
 	}
 
 	//I think there should be a better way to verify that the user is always logged in to render component
