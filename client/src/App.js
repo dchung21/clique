@@ -1,4 +1,6 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container'
 import LoginPage from './pages/Login.js';
 import Home from './pages/Home.js';
 import Profile from './pages/Profile.js';
@@ -18,6 +20,8 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
+        </header>
+        <Container>
           <Switch>
             <Route path="/home">
               <Home />
@@ -35,10 +39,10 @@ function App() {
               <Chat />
             </Route>
             <Route path="/">
-				      <LoginPage />
+              <LoginPage />
             </Route>
-        	</Switch>
-        </header>
+          </Switch>
+        </Container>
       </div>
     </Router>
   );
