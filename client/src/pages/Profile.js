@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
-import { FIREBASE_CONFIG } from '../config.js';
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
@@ -12,11 +11,27 @@ export default function Profile(props) {
 	const [bio, setBio] = useState("");
 	const [uid, setUid] = useState("");
 
-
-
 	//reference to storage service
 	let storage = firebase.storage();
+	const ref = React.useRef();
 
+	useEffect(() => {
+		//I think there should be a better way to verify that the user is always logged in to render component
+		//we need to redirect/do something different if user is not logged in.
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user != null) {
+				setUid(user.uid);
+				storage.ref("pix").child(uid).getDownloadURL().then(url => {
+					setImageUrl({url});
+				})	
+			}
+			else
+				console.log("not logged in");
+		});
+	});
+
+	
+	
 	//on selection of image from the user
 	const handleImageChange = (event) => {
 		if (event.target.files[0]) {
@@ -27,6 +42,7 @@ export default function Profile(props) {
 
 	//on typing of words into textarea
 	const handleTextChange = (event) => {
+		
 		setBio(event.target.value);
 	}
 
@@ -48,7 +64,7 @@ export default function Profile(props) {
 				.then(url => {
 					setImageUrl({url});
 					setImage("");
-					event.target.value = null;
+					ref.current.value = "";
 					console.log("done uploading");
 				})
 			})
@@ -78,26 +94,15 @@ export default function Profile(props) {
 
 	}
 
-	//I think there should be a better way to verify that the user is always logged in to render component
-	//we need to redirect/do something different if user is not logged in.
-	firebase.auth().onAuthStateChanged(function(user) {
-		if (user != null) {
-			console.log(user.uid);
-			setUid(user.uid);
-		}
-		else
-			console.log("x");
-	});
 
-
-	
 	return (
 		<div>
 			<Link to='/home'>Home</Link>
 			<h1>Welcome user: {uid}</h1>
+			<img src={imageUrl.url} />
 			<h2>Upload an image!</h2>
 				<form onSubmit={handleImageUpload}>
-					<input type="file" onChange = {handleImageChange} />
+					<input type="file" ref = {ref} onChange = {handleImageChange} />
 					<button>upload</button>
 				</form>
 			<h2>Write something that describes you (10 words max)</h2>
