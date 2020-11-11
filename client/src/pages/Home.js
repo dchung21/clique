@@ -3,8 +3,17 @@ import { Link } from "react-router-dom";
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import firebase from 'firebase/app';
 
 export default function Home() {
+
+    const logOut = (event) => {
+		firebase.auth().signOut().then(function() {
+            console.log("signed out");
+          }).catch(function(error) {
+            console.log("error signing out")
+          });
+	};
 
 	return (
         <Container className="d-flex justify-content-center align-items-center min-vh-100" fluid>
@@ -51,7 +60,7 @@ export default function Home() {
                     </p>
                     <p>
                         <Link to='/login'>
-                            <Button variant="primary">Log Out</Button>
+                            <Button variant="primary" onClick={logOut}>Log Out</Button>
                         </Link>
                     </p>
                 </Jumbotron>

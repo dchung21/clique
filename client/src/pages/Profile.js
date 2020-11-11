@@ -12,30 +12,46 @@ import Button from 'react-bootstrap/Button'
 export default function Profile(props) {
 	const [image, setImage] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
+	const [displayBio, setDisplayBio] = useState("");
 	const [bio, setBio] = useState("");
 	const [uid, setUid] = useState("");
 
 	//reference to storage service
 	let storage = firebase.storage();
+	let fs = firebase.firestore();
 	const ref = React.useRef();
 
 	useEffect(() => {
 		//I think there should be a better way to verify that the user is always logged in to render component
 		//we need to redirect/do something different if user is not logged in.
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user != null) {
-				setUid(user.uid);
-				storage.ref("pix").child(uid).getDownloadURL().then(url => {
-					setImageUrl({url});
-				})	
-			}
-			else
-				console.log("not logged in");
-		});
-	});
+		 async function fetchData() {
+			 firebase.auth().onAuthStateChanged(function(user) {
+				if (user != null) {
+					setUid(user.uid);
+					storage.ref("pix").child(user.uid).getDownloadURL().then(url => {
+						setImageUrl({url});
+						//get bio after getting image
+						fs.collection("users").where("uid", "==", user.uid)
+						.get()
+						.then(function(querySnapshot) {
+							querySnapshot.forEach(function(doc) {
+								setDisplayBio(doc.get("bio"));
+							});
+						});		
 
+					}).catch(error => {
+						console.log("Error: " + error);
+					});
+			
+				}
+				else
+					console.log("not logged in");
+			});
+		}
 	
-	
+		fetchData();
+	}, []);
+
 	//on selection of image from the user
 	const handleImageChange = (event) => {
 		if (event.target.files[0]) {
@@ -46,7 +62,6 @@ export default function Profile(props) {
 
 	//on typing of words into textarea
 	const handleTextChange = (event) => {
-		
 		setBio(event.target.value);
 	}
 
@@ -97,6 +112,7 @@ export default function Profile(props) {
 					// go through query results, updating the count each time
 					querySnapshot.forEach(doc => {
 						console.log("Updated bio");
+						setDisplayBio(bio);
 						bios.doc(doc.id).set({
 							uid: uid,
 							bio: bio
@@ -130,6 +146,7 @@ export default function Profile(props) {
 				<Link to='/home'>Home</Link>
 				<h3>Welcome user: {uid}</h3>
 				<img src={imageUrl.url} />
+				<h4>{displayBio}</h4>
 				<Form onSubmit={handleImageUpload}>
 					<Form.Group controlId="formImage">
 						<Form.Label>Upload an image (not of yourself)</Form.Label>
