@@ -4,6 +4,10 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
+import { FIREBASE_CONFIG } from '../config.js';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
@@ -70,7 +74,7 @@ export default function Profile(props) {
 			})
 	}
 
-	//TODO
+	//TODO plus delete previous messages
 	//this will upload bio to cloud firestore
 	const handleBioUpload = (event) => {
 
@@ -79,38 +83,48 @@ export default function Profile(props) {
 			alert("Your description is too long!");
 		} else {
 			alert("You just updated your description with: " + bio);
+			const db = firebase.firestore();
+			db.settings({
+				timestampsInSnapshots: true
+			});
+			const userRef = db.collection("users").add({
+				uid: uid,
+				bio: bio
+			});
 		}
 
 		//prevent from reloading page on submission
 		event.preventDefault();
-		const db = firebase.firestore();
-		db.settings({
-			timestampsInSnapshots: true
-		});
-		const userRef = db.collection("users").add({
-			uid: uid,
-			bio: bio
-		});
 
 	}
 
 
 	return (
-		<div>
-			<Link to='/home'>Home</Link>
-			<h1>Welcome user: {uid}</h1>
-			<img src={imageUrl.url} />
-			<h2>Upload an image!</h2>
-				<form onSubmit={handleImageUpload}>
-					<input type="file" ref = {ref} onChange = {handleImageChange} />
-					<button>upload</button>
-				</form>
-			<h2>Write something that describes you (10 words max)</h2>
-			<form onSubmit={handleBioUpload}>
-				<textarea value={bio} onChange={handleTextChange} />
-				<input type="submit" value="Submit" />
-			</form>
-		</div>
+		<Container className="d-flex justify-content-center align-items-center min-vh-100">
+			<div className="w-75">
+				<Link to='/home'>Home</Link>
+				<h3>Welcome user: {uid}</h3>
+				<img src={imageUrl.url} />
+				<Form onSubmit={handleImageUpload}>
+					<Form.Group controlId="formImage">
+						<Form.Label>Upload an image (not of yourself)</Form.Label>
+						<Form.File ref = {ref} onChange = {handleImageChange} />
+						<Button variant="primary" type="submit">
+							Upload
+						</Button>
+					</Form.Group>
+				</Form>
+				<Form onSubmit={handleBioUpload}>
+					<Form.Group controlId="formTextarea">
+						<Form.Label>Write something that describes you (10 words max)</Form.Label>
+						<Form.Control as="textarea" placeholder="Your 10 words!" rows={3} value={bio} onChange={handleTextChange} />
+					</Form.Group>
+					<Button variant="primary" type="submit">
+						Submit
+					</Button>
+				</Form>
+			</div>
+		</Container>
 	)
 	
 }
