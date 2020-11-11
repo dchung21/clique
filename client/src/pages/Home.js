@@ -43,6 +43,18 @@ export default function Home() {
                         </Link>
                     </p>
                 </Jumbotron>
+
+                <Jumbotron>
+                    <h1>Log Out</h1>
+                    <p>
+                        Log Out!
+                    </p>
+                    <p>
+                        <Link to='/login'>
+                            <Button variant="primary">Log Out</Button>
+                        </Link>
+                    </p>
+                </Jumbotron>
             </div>
         </Container>
 	)
