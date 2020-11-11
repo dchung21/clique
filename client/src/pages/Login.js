@@ -3,6 +3,7 @@ import { FIREBASE_CONFIG } from '../config.js';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import Container from 'react-bootstrap/Container'
 
 if (!firebase.apps.length) {
 	firebase.initializeApp(FIREBASE_CONFIG);
@@ -29,10 +30,15 @@ if (email.toLowerCase().endsWith(approvedDomain)) {
 
 export default function LoginPage (props) {
 	return (
-		<div>
-			<h1>My app</h1>
-			<p>Sign in</p>
-			<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
-		</div>
+		<Container className="d-flex justify-content-center align-items-center min-vh-100">
+			<div>
+				<h1 className="text-center">Sign in</h1>
+				<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+			</div>
+		</Container>
 	);
 }
+
+{/* <h1>My app</h1>
+<p>Sign in</p>
+<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/> */}
