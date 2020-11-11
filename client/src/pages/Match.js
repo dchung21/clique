@@ -6,7 +6,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ChatIcon from '@material-ui/icons/Chat'; 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import IconButton from '@material-ui/core/IconButton';
-import "./Button.css"
+//import "../Button.css"
 
 export default function Match() {
     function Header() {
@@ -38,14 +38,14 @@ export default function Match() {
 
 	return (
         <div>
-            <div className = "button">
+            <div>
                 <Link to='/home'>
                     <IconButton>
                         <HomeIcon />
                     </IconButton>
                 </Link>
             </div>
-            <div className = "button">
+            <div>
             <Link to='/chat'>
                 <IconButton>
                     <ChatIcon />
