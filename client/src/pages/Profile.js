@@ -24,19 +24,18 @@ export default function Profile(props) {
 	useEffect(() => {
 		//I think there should be a better way to verify that the user is always logged in to render component
 		//we need to redirect/do something different if user is not logged in.
-		async function fetchData() {
-			firebase.auth().onAuthStateChanged(function(user) {
+		 async function fetchData() {
+			 firebase.auth().onAuthStateChanged(function(user) {
 				if (user != null) {
 					setUid(user.uid);
-					storage.ref("pix").child(uid).getDownloadURL().then(url => {
+					storage.ref("pix").child(user.uid).getDownloadURL().then(url => {
 						setImageUrl({url});
-			
 						//get bio after getting image
 						fs.collection("users").where("uid", "==", uid)
 						.get()
 						.then(function(querySnapshot) {
 							querySnapshot.forEach(function(doc) {
-								//setDisplayBio(doc.get("bio"));
+								setDisplayBio(doc.get("bio"));
 							});
 						});		
 
@@ -49,11 +48,10 @@ export default function Profile(props) {
 					console.log("not logged in");
 			});
 		}
+	
 		fetchData();
 	}, []);
 
-	
-	
 	//on selection of image from the user
 	const handleImageChange = (event) => {
 		if (event.target.files[0]) {
