@@ -1,17 +1,26 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button'
 
 export default function Match() {
+    style = {
+
+    }
 
 	return (
-        <div>
-            <Link to='/home'>Home</Link>
-            <h2>Matching Page</h2>
-            <button>
-                <Link to='/chat'>Chat</Link>
-            </button>
-            <button>next</button>
-        </div>
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
+            <div>
+                <Button variant = "primary">
+                    <Link to='/home'>Home</Link>
+                </Button>
+                <h2>Matching Page</h2>
+                <Button variant = "primary">
+                    <Link to='/chat'>Chat</Link>
+                </Button>
+                <Button variant = "outline-secondary">next</Button>
+            </div>
+        </Container>
 	)
-	
+    
+    
 }
