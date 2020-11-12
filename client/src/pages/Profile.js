@@ -45,6 +45,7 @@ export default function Profile(props) {
 
 					}).catch(error => {
 						console.log("Error: " + error);
+						setImageUrl({url: "https://firebasestorage.googleapis.com/v0/b/yhacks-d4ca5.appspot.com/o/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg?alt=media&token=57e31b47-db10-405c-af9f-01ae8de4587f"});
 					});
 			
 				}
@@ -177,7 +178,7 @@ export default function Profile(props) {
 						delay={{ show: 250, hide: 400 }}
 						overlay={<Tooltip id="button-tooltip-2">click to change profile</Tooltip>}
 					>
-					<Button variant = "" onClick = {handleClick}><Image className="w-50 h-50" src={imageUrl.url} /></Button>
+					<Button variant = "" onClick = {handleClick}><Image className="w-50 h-50" src={imageUrl.url}/></Button>
 					</OverlayTrigger>
 					<input
 					type="file"
