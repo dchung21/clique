@@ -45,7 +45,7 @@ export default function Match() {
 						<ButtonToolbar className="d-flex justify-content-center align-items-center">
 
 							<Link to='/chat'>
-								<Button variant="primary" size="lg"><ChatIcon /></Button>
+								<Button variant="primary" size="lg" ><ChatIcon /></Button>
 							</Link>
 
 							<br></br>

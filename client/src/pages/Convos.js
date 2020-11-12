@@ -86,7 +86,7 @@ export default function Convos() {
         listItems = <ListGroup>
             {
                 convos.map((convo) => (
-                    <ListGroup.Item>
+                    <ListGroup.Item key={convo.timestamp_ms}>
                         <Media as="li">
                             <img
                             width={64}
@@ -98,7 +98,7 @@ export default function Convos() {
                             <Media.Body>
                                 <Link to={{
                                     pathname: '/chat',
-                                    state: { convoRef: convos.convoRef }
+                                    state: { convoRef: convo.convoRef }
                                 }}>
                                     <h5>Convo 1</h5>
                                 </Link>
