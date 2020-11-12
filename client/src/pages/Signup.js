@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import firebase from 'firebase/app';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
@@ -29,9 +30,20 @@ export default function Signup() {
             setError("");
             setLoading(true);
 
-            await signup(emailRef.current.value, passwordRef.current.value);
+            await signup(emailRef.current.value, passwordRef.current.value).then(function(user) {
+				const id = user.user.uid;
+				const account = {
+					uid: id,
+					bio: "",
+				}
+			
+				const fs = firebase.firestore();
+				fs.collection("users").doc(id).set(account);
+				fs.collection("users").doc(id).collection("matchedUsers").doc(id).set ({ uid: id });
+			});
             history.push("/home");
         } catch {
+			
             setError("Failed to create an account!");
         }
 
