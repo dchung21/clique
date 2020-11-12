@@ -45,15 +45,19 @@ export default function Match() {
 						<ButtonToolbar className="d-flex justify-content-center align-items-center">
 
 							<Link to='/chat'>
-								<Button className = "mx-5" variant="primary" size="lg"><ChatIcon /></Button>
+								<Button variant="primary" size="lg"><ChatIcon /></Button>
 							</Link>
+
+							<br></br>
 
 							<Link to='/home'>
-                				<Button className = "mx-5" variant = "primary" size="lg"><HomeIcon /></Button>
+                				<Button variant = "primary" size="lg"><HomeIcon /></Button>
 							</Link>
 
+							<br></br>
+
 							<Link to='/match'>
-								<Button className = "mx-5" variant="primary" size="lg"><SkipNextIcon /></Button>
+								<Button variant="primary" size="lg"><SkipNextIcon /></Button>
 							</Link>
 
 						</ButtonToolbar>
