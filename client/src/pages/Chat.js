@@ -8,8 +8,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { auth } from '../firebase';
 
-import './Chat.css';
-
 
 export default function Chat(props) {
     const [yourImg, setYourImg] = useState("");
@@ -93,7 +91,7 @@ export default function Chat(props) {
         <div>
             <Link to='/home'>Home</Link>
             <h2>Chat</h2>
-            <div className="App">
+            <div>
                 <div>
                     {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} yourImgUrl={yourImg.url} theirImgUrl={theirImg.url} currentUser={uid}/>)}
 
