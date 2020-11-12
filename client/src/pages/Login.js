@@ -28,7 +28,7 @@ export default function Login() {
     }
 
     return (
-        <>
+        <div>
             <Card style = {{ width: "400px" }}>
                 <Card.Body>
                     <h2 className = "text-center mb-4">Log In</h2>
@@ -51,6 +51,6 @@ export default function Login() {
             <div className = "w-100 text-center mt-2">
                 Need an account? <Link to ="signup">Sign Up</Link>
             </div>
-        </>
+        </div>
     )
 }
