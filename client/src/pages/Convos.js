@@ -28,7 +28,7 @@ export default function Convos() {
                 storage.ref("pix").child(otherUid).getDownloadURL().then(url => {
                     
                     //get the last message
-                    fs.collection("conversations/" + doc.id + "/messages").orderBy("timestamp_ms", "desc").limit(1)
+                    fs.collection("conversations/" + doc.id + "/messages").orderBy("timestamp", "desc").limit(1)
                     .get()
                     .then(function(messageSnapshot) {
                         let count = 0;
@@ -37,7 +37,7 @@ export default function Convos() {
                             setConvos([...convos, {
                                 imgURL: url,
                                 content: messageDoc.data().content,
-                                timestamp_ms: messageDoc.data().timestamp_ms,
+                                timestamp: messageDoc.data().timestamp,
                                 convoRef: "conversations/" + doc.id + "/messages"
                             }]);
                             count++;
@@ -86,7 +86,7 @@ export default function Convos() {
         listItems = <ListGroup>
             {
                 convos.map((convo) => (
-                    <ListGroup.Item key={convo.timestamp_ms}>
+                    <ListGroup.Item key={convo.timestamp}>
                         <Media as="li">
                             <img
                             width={64}
