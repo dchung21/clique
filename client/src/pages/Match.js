@@ -95,7 +95,18 @@ export default function Match() {
 		);
 
 		const noMatches = (
-			<h2>You've matched with every single person!</h2>
+			<div>
+				<Card.Body>
+					<Card.Text className="d-flex justify-content-center align-items-center">
+						<h2>You've matched with every single person!</h2>
+					</Card.Text>
+
+					<Link to='/home'>
+                		<Button className = "mx-5" variant = "primary" size="lg"><HomeIcon /></Button>
+					</Link>
+
+				</Card.Body>
+			</div>
 		);
 
 		let renderedComponent;
