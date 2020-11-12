@@ -83,6 +83,7 @@ export default function Convos() {
     } else if(!loading && convos.length == 0) {
         listItems = <h3>You have no conversations :(</h3>
     } else {
+        console.log(convos);
         listItems = <ListGroup>
             {
                 convos.map((convo) => (
