@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import {Card, Container, Button} from 'react-bootstrap'
+import {Card, Container, Button, ButtonToolbar} from 'react-bootstrap'
 import HomeIcon from '@material-ui/icons/Home'; 
-import ChatIcon from '@material-ui/icons/Chat'; 
+import ChatIcon from '@material-ui/icons/Chat';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 import firebase from 'firebase/app'; 
 import Image from 'react-bootstrap/Image';
 import 'firebase/firestore';
@@ -32,52 +33,33 @@ export default function Match() {
 	return (
 		<div>
 			<header>
-				<Card className = "mb-250" style = {{ width: "1000px" }}>
-					<Card.Img src = {currentUser.img} />
-					<Card.Body className="d-flex justify-content-center align-items-center">
+				<Card className = "text-center">
+					<Card.Img className="d-flex m-auto mx-auto" 
+						src = {currentUser.img} responsive style = {{ width: "750px", weight: "750px" }} />
+					<Card.Body>
 						
-						<Card.Text>
+						<Card.Text className="d-flex justify-content-center align-items-center">
 							{currentUser.bio}
 						</Card.Text>
-						
-						<Card.Text>
-						<Button variant = "primary" className = "d-flex">Chat!</Button>
-						<Button variant = "primary" className="d-flex">Swipe Left</Button>
-						</Card.Text>
 
+						<ButtonToolbar className="d-flex justify-content-center align-items-center">
+
+							<Link to='/chat'>
+								<Button className = "mx-5" variant="primary" size="lg"><ChatIcon /></Button>
+							</Link>
+
+							<Link to='/home'>
+                				<Button className = "mx-5" variant = "primary" size="lg"><HomeIcon /></Button>
+							</Link>
+
+							<Link to='/match'>
+								<Button className = "mx-5" variant="primary" size="lg"><SkipNextIcon /></Button>
+							</Link>
+
+						</ButtonToolbar>
 					</Card.Body>
 				</Card>
 			</header>
 		</div>
 	)
-
-
-	// return (
-    //     <Container className="d-flex justify-content-center align-items-center min-vh-100">
-    //         <div>
-    //             <Link to='/home'>
-    //                 <Button variant = "primary">
-    //                     home
-    //                 </Button>
-    //             </Link>
-    //             <h1> Match Page</h1>
-				
-	// 			<div className = "userProfile">
-	// 				<Image className="w=10 h=10" src={currentUser.img} />
-	// 				<h3>{currentUser.bio}</h3>
-	// 			</div>
-                
-	// 			<Link to='/chat'>
-    //                 <Button variant = "primary">
-    //                     chat
-    //                 </Button>
-    //             </Link>
-
-    //             <Button variant = "outline-secondary" onClick={randUser}>swipe left</Button>
-    //         </div>
-    //     </Container>
-    // )
-
-    
-    
 }
