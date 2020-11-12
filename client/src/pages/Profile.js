@@ -57,8 +57,26 @@ export default function Profile(props) {
 	const handleImageChange = (event) => {
 		if (event.target.files[0]) {
 			const image = event.target.files[0];
-			setImage(image);	
+			setImage(image);
+			
+			console.log("Starting upload");
+		const upload = storage.ref(`pix/${uid}`).put(image);
+		upload.on("state_changed",
+			(snapShot) => {
+				console.log(snapShot);
+			}, (err) => {
+				console.log(err);
+			}, () => {
+				storage.ref("pix").child(`${uid}`).getDownloadURL()
+				.then(url => {
+					setImageUrl({url});
+					setImage("");
+					ref.current.value = "";
+					console.log("done uploading");
+				})
+			})	
 		}
+
 	}
 
 	//on typing of words into textarea
@@ -139,7 +157,6 @@ export default function Profile(props) {
 		//prevent from reloading page on submission
 		event.preventDefault();
 	}
-
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
 			<div className="w-75">
@@ -158,14 +175,12 @@ export default function Profile(props) {
 						Submit
 					</Button>
 				</Form>
-				<Form onSubmit={handleImageUpload}>
+				<Form>
 					<Form.Group controlId="formImage" className="py-3">
 						<Form.Label>Upload an image (not of yourself)</Form.Label>
 						<Form.Row>
 							<Form.File ref = {ref} onChange = {handleImageChange}/>
-							<Button variant="primary" type="submit">
-								Upload
-							</Button>
+
 						</Form.Row>
 					</Form.Group>
 				</Form>
