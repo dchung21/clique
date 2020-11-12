@@ -23,7 +23,6 @@ export default function Profile(props) {
 	//reference to storage service
 	let storage = firebase.storage();
 	let fs = firebase.firestore();
-	const ref = React.useRef();
 
 	useEffect(() => {
 		//I think there should be a better way to verify that the user is always logged in to render component
@@ -75,7 +74,6 @@ export default function Profile(props) {
 				.then(url => {
 					setImageUrl({url});
 					setImage("");
-					ref.current.value = "";
 					console.log("done uploading");
 				})
 			})
@@ -106,7 +104,6 @@ export default function Profile(props) {
 				.then(url => {
 					setImageUrl({url});
 					setImage("");
-					ref.current.value = "";
 					console.log("done uploading");
 				})
 			})
