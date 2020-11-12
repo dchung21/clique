@@ -15,6 +15,12 @@ export default function Signup() {
     async function handleSubmit(e) {
         e.preventDefault();
 
+        const approvedDomain = ".edu"; // We only allow people with emails ending in ".edu" to register for an account.
+
+        if (!emailRef.current.value.toLowerCase().endsWith(approvedDomain)) {
+            return setError("You may only sign up with a '.edu' address!")
+        }
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError("Password and Confirmed Password do not match!");
         }
@@ -24,7 +30,7 @@ export default function Signup() {
             setLoading(true);
 
             await signup(emailRef.current.value, passwordRef.current.value);
-            history.push("/");
+            history.push("/home");
         } catch {
             setError("Failed to create an account!");
         }
@@ -51,7 +57,7 @@ export default function Signup() {
 
                         <Form.Group id = "password-confirm">
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type = "password-confirm" ref = {passwordConfirmRef} required></Form.Control>
+                            <Form.Control type = "password" ref = {passwordConfirmRef} required></Form.Control>
                         </Form.Group>
 
                         <Button disabled = {loading} className = "w-100" type = "submit">Sign Up</Button>
