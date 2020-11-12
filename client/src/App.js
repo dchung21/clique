@@ -24,25 +24,23 @@ function App() {
       style = {{ minHeight: "100vh" }}
       >
 
-        <div className = "mainApp">
-          <Router>
-            <AuthProvider>
-              <Switch>
+        <Router>
+          <AuthProvider>
+            <Switch>
                 
-                <Route path = "/signup" component = {Signup} />
-                <Route path = "/login" component = {Login} />
+              <Route path = "/signup" component = {Signup} />
+              <Route path = "/login" component = {Login} />
                 
-                <PrivateRoute path = "/home" component = {Home} />
-                <PrivateRoute path = "/match" component = {Match} />
-                <PrivateRoute path = "/convos" component = {Convos} />
-                <PrivateRoute path = "/chat" component = {Chat} />
-                <PrivateRoute path = "/profile" component = {Profile} />
+              <PrivateRoute path = "/home" component = {Home} />
+              <PrivateRoute path = "/match" component = {Match} />
+              <PrivateRoute path = "/convos" component = {Convos} />
+              <PrivateRoute path = "/chat" component = {Chat} />
+              <PrivateRoute path = "/profile" component = {Profile} />
 
-              </Switch>
-            </AuthProvider>
-          </Router>
-        </div>
-      </Container>
+            </Switch>
+          </AuthProvider>
+        </Router>
+    </Container>
   )
 }
 
