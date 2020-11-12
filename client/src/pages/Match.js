@@ -50,7 +50,7 @@ export default function Match() {
                     </Button>
                 </Link>
 
-                <Button variant = "outline-secondary" onClick={randUser}>swipe their bitchass</Button>
+                <Button variant = "outline-secondary" onClick={randUser}>swipe left</Button>
             </div>
         </Container>
     )
