@@ -38,7 +38,7 @@ export default function Convos() {
                                 imgURL: url,
                                 content: messageDoc.data().content,
                                 timestamp_ms: messageDoc.data().timestamp_ms,
-                                uid: messageDoc.data().uid
+                                convoRef: "conversations/" + doc.id + "/messages"
                             }]);
                             count++;
                             console.log(count);
@@ -96,7 +96,10 @@ export default function Convos() {
                             alt="Img"
                             />
                             <Media.Body>
-                                <Link to='/chat'>
+                                <Link to={{
+                                    pathname: '/chat',
+                                    state: { convoRef: convos.convoRef }
+                                }}>
                                     <h5>Convo 1</h5>
                                 </Link>
                                 <p>
