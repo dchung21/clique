@@ -58,12 +58,11 @@ export default function Home() {
                             </Link>
                         </p>
                     </Jumbotron>
+                    <div className = "w-100 text-center mt-2">
+                        <Button variant  = "link" onClick = {handleLogout}>Log Out</Button>
+                    </div>
                 </div>
             </Container>
-
-            <div className = "w-100 text-center mt-2">
-                <Button variant  = "link" onClick = {handleLogout}>Log Out</Button>
-            </div>
         </>
     )	
 }

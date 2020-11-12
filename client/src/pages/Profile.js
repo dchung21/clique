@@ -9,6 +9,9 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
+import Overlay from 'react-bootstrap/Overlay'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
@@ -74,7 +77,7 @@ export default function Profile(props) {
 					ref.current.value = "";
 					console.log("done uploading");
 				})
-			})	
+			})
 		}
 
 	}
@@ -157,13 +160,31 @@ export default function Profile(props) {
 		//prevent from reloading page on submission
 		event.preventDefault();
 	}
+	const hiddenFileInput = React.useRef(null);
+
+	const handleClick = event => {
+		hiddenFileInput.current.click();
+	};
+
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
 			<div className="w-75">
 				<Link to='/home'>Home</Link>
 				<h3 className="text-center py-3">Welcome user: {uid}</h3>
 				<div className="d-flex justify-content-center">
-					<Image className="w-50 h-50" src={imageUrl.url} roundedCircle fluid/>
+				<OverlayTrigger
+						placement="top"
+						delay={{ show: 250, hide: 400 }}
+						overlay={<Tooltip id="button-tooltip-2">click to change profile</Tooltip>}
+					>
+					<Button variant = "" onClick = {handleClick}><Image className="w-50 h-50" src={imageUrl.url} /></Button>
+					</OverlayTrigger>
+					<input
+					type="file"
+					ref={hiddenFileInput}
+					onChange={handleImageChange}
+					style={{display: 'none'}}
+					/>
 				</div>
 				<h4 className="text-center py-3">{displayBio}</h4>
 				<Form onSubmit={handleBioUpload} className="py-3">
@@ -174,15 +195,6 @@ export default function Profile(props) {
 					<Button variant="primary" type="submit">
 						Submit
 					</Button>
-				</Form>
-				<Form>
-					<Form.Group controlId="formImage" className="py-3">
-						<Form.Label>Upload an image (not of yourself)</Form.Label>
-						<Form.Row>
-							<Form.File ref = {ref} onChange = {handleImageChange}/>
-
-						</Form.Row>
-					</Form.Group>
 				</Form>
 			</div>
 		</Container>

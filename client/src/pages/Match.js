@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
+import {Card, Container, Button, ButtonToolbar} from 'react-bootstrap'
 import HomeIcon from '@material-ui/icons/Home'; 
-import ChatIcon from '@material-ui/icons/Chat'; 
+import ChatIcon from '@material-ui/icons/Chat';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 import firebase from 'firebase/app'; 
 import Image from 'react-bootstrap/Image';
 import 'firebase/firestore';
@@ -67,17 +67,30 @@ export default function Match() {
 
 		const availMatches = (
 			<div>
-				<div className = "userProfile">
-					<Image className="w-50 h=50" src={currentUser.img} />
-					<h3>{currentUser.bio}</h3>
-				</div>
-                <Link to='/chat'>
-                    <Button variant = "primary">
-                        chat
-                    </Button>
-                </Link>
+			<Card.Img className="d-flex m-auto mx-auto" 
+				src = {currentUser.img} responsive style = {{ width: "750px", weight: "750px" }} />
+				<Card.Body>
+						
+				<Card.Text className="d-flex justify-content-center align-items-center">
+					{currentUser.bio}
+				</Card.Text>
 
-                <Button variant = "outline-secondary" onClick={() => randUser(uid, matchedUsers)}>swipe left</Button>
+				<ButtonToolbar className="d-flex justify-content-center align-items-center">
+
+				<Link to='/chat'>
+					<Button className = "mx-5" variant="primary" size="lg"><ChatIcon /></Button>
+				</Link>
+
+				<Link to='/home'>
+                	<Button className = "mx-5" variant = "primary" size="lg"><HomeIcon /></Button>
+				</Link>
+
+				<Link to='/match'>
+					<Button className = "mx-5" variant="primary" size="lg"><SkipNextIcon onClick= {() => randUser(uid, matchedUsers)}/></Button>
+				</Link>
+				</ButtonToolbar>
+
+				</Card.Body>
 			</div>
 		);
 
@@ -93,20 +106,14 @@ export default function Match() {
 			renderedComponent = availMatches;
 		}
 
-	return (
-        <Container className="d-flex justify-content-center align-items-center min-vh-100">
-            <div>
-                <Link to='/home'>
-                    <Button variant = "primary">
-                        home
-                    </Button>
-                </Link>
-                <h1> Match Page</h1>
-				{renderedComponent}
-			</div>
-        </Container>
-    )
 
-    
-    
+	return (
+		<div>
+			<header>
+				<Card className = "text-center">
+					{renderedComponent}		
+				</Card>
+			</header>
+		</div>
+	)
 }
