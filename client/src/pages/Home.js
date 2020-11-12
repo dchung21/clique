@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Button, Card, Container, Jumbotron, Alert } from "react-bootstrap";
+import { Button, Container, Jumbotron } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
@@ -67,7 +68,3 @@ export default function Home() {
         </>
     )	
 }
-
-//<div className = "w-100 text-center mt-2">
-//Need an account? <Link to ="signup">Sign Up</Link>
-//</div>
