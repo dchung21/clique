@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/esm/Container';
-import ConvoItem from './ConvoBox.js';
 import ConvoContainer from './ConvoContainer.js';
 import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
@@ -25,7 +24,7 @@ export default function Convos() {
         .get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-                let otherUid = (uidTarget == "uid1") ? doc.data().uid2 : doc.data().uid1;
+                let otherUid = (uidTarget === "uid1") ? doc.data().uid2 : doc.data().uid1;
                 //get the images for the convos of the other person
                 storage.ref("pix").child(otherUid).getDownloadURL().then(url => {
                     
@@ -43,12 +42,14 @@ export default function Convos() {
                                 convoRef: "conversations/" + doc.id + "/messages"
                             })
                             // setting the convos after convoBuffer??
-                            setConvos(convoBuffer);
+                            //setConvos(convoBuffer);
                             count++;
                         });
+                        console.log(convoBuffer)
+                        setConvos(convoBuffer)
                         if(count > 1) {
                             console.log("something went wrong, more than one message.");
-                        } else if(count == 1) {
+                        } else if(count === 1) {
                             console.log("successful got one message.");
                         } else {
                             console.log("something wierd happened");
@@ -57,12 +58,13 @@ export default function Convos() {
                 })
             })
             setLoaded(loaded+1);
-            console.log("loaded: ",loaded);
+           // console.log("loaded: ",loaded);
         })
     }
 
     useEffect(() => {
 		 async function fetchData() {
+             
 			await firebase.auth().onAuthStateChanged(async function(user) {
 				if (user != null) {
                     setUid(user.uid);
@@ -78,7 +80,7 @@ export default function Convos() {
 			});
 		}
         
-        fetchData().then(() => { console.log(convoBuffer)});
+        fetchData();
 
     }, []);
 

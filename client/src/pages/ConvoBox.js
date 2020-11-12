@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/esm/Container';
+import React from 'react';
 import ListGroup from 'react-bootstrap/esm/ListGroup';
 import Media from 'react-bootstrap/Media'
 import { Link } from "react-router-dom";

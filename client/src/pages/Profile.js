@@ -4,12 +4,10 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
-import { FIREBASE_CONFIG } from '../config.js';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
-import Overlay from 'react-bootstrap/Overlay'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 
@@ -143,7 +141,7 @@ export default function Profile(props) {
 					// bad, too many bios
 					if(count > 1) {
 						console.log("Wierd, you seem to have more than one bio?");
-					} else if (count == 0) { // no bio yet, so add it in
+					} else if (count === 0) { // no bio yet, so add it in
 						console.log("Added bio");
 						bios.add({
 							uid: uid,

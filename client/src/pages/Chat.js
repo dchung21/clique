@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { auth } from '../firebase';
 
 
 export default function Chat(props) {
@@ -27,7 +25,6 @@ export default function Chat(props) {
     const [formValue, setFormValue] = useState("");
 
     const storage = firebase.storage();
-	const ref = React.useRef();
 
     useEffect(() => {
         // gets both of your pictures
@@ -47,7 +44,7 @@ export default function Chat(props) {
                     .get()
                     .then(function(doc) {
                         if(doc.exists) {
-                            const theirUID = (doc.data().uid1 != user.uid) ? doc.data().uid1 : doc.data().uid2;
+                            const theirUID = (doc.data().uid1 !== user.uid) ? doc.data().uid1 : doc.data().uid2;
                             storage.ref("pix").child(theirUID).getDownloadURL().then(url => {
                                 setTheirImg({url});
                             }).catch(error => {
