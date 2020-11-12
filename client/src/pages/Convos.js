@@ -10,12 +10,14 @@ import 'firebase/firestore';
 export default function Convos() {
     const [convos, setConvos] = useState([]);
     const [uid, setUid] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [loaded, setLoaded] = useState(0);
 
     //reference to storage service
     let storage = firebase.storage();
     let fs = firebase.firestore();
     const ref = React.useRef();
+
+    let convoBuffer = [];
 
     async function getConvos(user, uidTarget) {
         // get convos from uidTarget
@@ -33,15 +35,16 @@ export default function Convos() {
                     .then(function(messageSnapshot) {
                         let count = 0;
                         messageSnapshot.forEach(function(messageDoc) {
-                            // set the convo with info about url and last message data
-                            setConvos([...convos, {
+                            // pushes into convo buffer
+                            convoBuffer.push({
                                 imgURL: url,
                                 content: messageDoc.data().content,
                                 timestamp: messageDoc.data().timestamp,
                                 convoRef: "conversations/" + doc.id + "/messages"
-                            }]);
+                            })
+                            // setting the convos after convoBuffer??
+                            setConvos(convoBuffer);
                             count++;
-                            console.log(count);
                         });
                         if(count > 1) {
                             console.log("something went wrong, more than one message.");
@@ -53,20 +56,22 @@ export default function Convos() {
                     });
                 })
             })
+            setLoaded(loaded+1);
+            console.log("loaded: ",loaded);
         })
-
     }
 
     useEffect(() => {
-		//I think there should be a better way to verify that the user is always logged in to render component
-		//we need to redirect/do something different if user is not logged in.
 		 async function fetchData() {
-			 firebase.auth().onAuthStateChanged(function(user) {
+			await firebase.auth().onAuthStateChanged(async function(user) {
 				if (user != null) {
                     setUid(user.uid);
-                    getConvos(user, "uid1");
-                    getConvos(user, "uid2");
-                    setLoading(false);
+                    // I think it may be a concurrency issue??
+                    await getConvos(user, "uid1")
+                    await getConvos(user, "uid2")
+                    // right here idk
+                    //setConvos(convoBuffer)
+                    console.log("convoBuffer in fetchData: ", convoBuffer);
 				}
 				else
 					console.log("not logged in");
@@ -78,37 +83,16 @@ export default function Convos() {
     }, []);
 
     let listItems;
-    if(loading) {
+    if(loaded < 1) {
         listItems = <h3>...</h3>
-    } else if(!loading && convos.length == 0) {
+    } else if(loaded >= 1 && convos.length == 0) {
         listItems = <h3>You have no conversations :(</h3>
     } else {
-        console.log(convos);
+        console.log("listGroup convos:", convos);
         listItems = <ListGroup>
             {
-                convos.map((convo) => (
-                    <ListGroup.Item key={convo.timestamp}>
-                        <Media as="li">
-                            <img
-                            width={64}
-                            height={64}
-                            className="mr-3"
-                            src={convo.imgURL}
-                            alt="Img"
-                            />
-                            <Media.Body>
-                                <Link to={{
-                                    pathname: '/chat',
-                                    state: { convoRef: convo.convoRef }
-                                }}>
-                                    <h5>Convo 1</h5>
-                                </Link>
-                                <p>
-                                    {convo.content}
-                                </p>
-                            </Media.Body>
-                        </Media>
-                    </ListGroup.Item>
+                convos.map((convo, key) => (
+                    <ConvoItem key={"CI" + key.toString} imgURL={convo.imgURL} convoRef={convo.convoRef} content={convo.content} count={(key+1).toString()}/>
                 ))
             }
         </ListGroup>
@@ -124,4 +108,31 @@ export default function Convos() {
         </Container>
 	)
 	
+}
+
+function ConvoItem(props) {
+    return (
+        <ListGroup.Item key={props.key}>
+            <Media as="li">
+                <img
+                width={64}
+                height={64}
+                className="mr-3"
+                src={props.imgURL}
+                alt="Img"
+                />
+                <Media.Body>
+                    <Link to={{
+                        pathname: '/chat',
+                        state: { convoRef: props.convoRef }
+                    }}>
+                        <h5>Convo {props.count}</h5>
+                    </Link>
+                    <p>
+                        {props.content}
+                    </p>
+                </Media.Body>
+            </Media>
+        </ListGroup.Item>
+    )
 }
