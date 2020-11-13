@@ -1,5 +1,8 @@
 # Clique: YHacks 2020 Project
 
+## Youtube Demo:
+[See the video here.](https://youtu.be/Mjf2Wdn-6oI)
+
 ## Dependencies
 NodeJS and NPM
 
