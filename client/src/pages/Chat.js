@@ -95,12 +95,11 @@ export default function Chat(props) {
     }
 
 	return (
-        <Container className="d-flex justify-content-center align-items-center min-vh-100">
-            <Container className="w-75">
-                <Link to='/home'>Home</Link>
-                <h2>Chat</h2>
-                <Card className="border-light">
-                    <Card.Body>
+        <Container className="d-flex justify-content-center align-items-center vh-100">
+            <Container className="h-100 w-50">
+                <h2 className="text-center m-3">Chat</h2>
+                <Card className="border-light h-75">
+                    <Card.Body className="overflow-auto">
                         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} yourImgUrl={yourImg.url} theirImgUrl={theirImg.url} currentUser={uid}/>)}
                         <div ref={dummy}></div>
                     </Card.Body>
