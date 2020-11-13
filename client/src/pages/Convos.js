@@ -56,6 +56,7 @@ export default function Convos() {
                  setLoaded(loaded+1);
                  setConvos(convoBuffer);
         }
+        
 		 async function fetchData() {
             const result = await firebase.auth().onAuthStateChanged(function(user) {
                 if (user != null) {

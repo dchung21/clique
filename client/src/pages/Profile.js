@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -10,6 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
+import SiteNavBar from './NavBar.js';
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
@@ -164,8 +164,8 @@ export default function Profile(props) {
 
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
-			<div className="w-75">
-				<Link to='/home'>Home</Link>
+			<SiteNavBar />
+			<div className="w-75 h-80">
 				<h3 className="text-center py-3">Welcome user: {uid}</h3>
 				<div className="d-flex justify-content-center">
 				<OverlayTrigger
