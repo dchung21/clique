@@ -6,6 +6,16 @@ import 'firebase/firestore';
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import Container from 'react-bootstrap/esm/Container';
+import Card from 'react-bootstrap/Card';
+import Media from 'react-bootstrap/Media';
+import Image from 'react-bootstrap/Image';
+import { ListGroup } from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+
 
 export default function Chat(props) {
     const [yourImg, setYourImg] = useState("");
@@ -85,22 +95,28 @@ export default function Chat(props) {
     }
 
 	return (
-        <div>
-            <Link to='/home'>Home</Link>
-            <h2>Chat</h2>
-            <div>
-                <div>
-                    {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} yourImgUrl={yourImg.url} theirImgUrl={theirImg.url} currentUser={uid}/>)}
-
-                    <div ref={dummy}></div>
-
-                </div>
-                <form onSubmit={sendMessage}>
-                    <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        </div>
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
+            <Container className="w-75">
+                <Link to='/home'>Home</Link>
+                <h2>Chat</h2>
+                <Card className="border-light">
+                    <Card.Body>
+                        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} yourImgUrl={yourImg.url} theirImgUrl={theirImg.url} currentUser={uid}/>)}
+                        <div ref={dummy}></div>
+                    </Card.Body>
+                    <Form onSubmit={sendMessage} fluid>
+                        <Form.Row className="d-flex justify-content-end w-100 ml-0">
+                            <Col xs={10} className="p-0">
+                                <Form.Control type="message" placeholder="Your message" value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
+                            </Col>
+                            <Col className="p-0">
+                                <Button variant="info" type="submit" className="w-100">Send</Button>
+                            </Col>
+                        </Form.Row>
+                    </Form>
+                </Card>
+            </Container>
+        </Container>
 	)
 	
 }
@@ -111,10 +127,41 @@ function ChatMessage(props) {
     const messageClass = (uid === props.currentUser) ? 'sent' : 'recieved';
     const photoURL = (uid === props.currentUser) ? props.yourImgUrl : props.theirImgUrl;
 
-    return (
-        <div className={`message ${messageClass}`}>
-            <img src={photoURL}/>
-            <p>{content}</p>    
-        </div>
-    )
+    const imageSize = 32;
+
+    let htmlContent;
+    if(messageClass == 'sent') {
+        htmlContent = (
+            <Media>
+                <Media.Body className="align-middle">
+                    <Alert variant="primary" className="text-right w-50 float-right">{content}</Alert>
+                </Media.Body>
+                <Image
+                width={imageSize}
+                height={imageSize}
+                className="align-self-center ml-3"
+                src={photoURL}
+                roundedCircle
+                />
+            </Media>
+        );
+    } else {
+        htmlContent = (
+            <Media>
+                <Image
+                width={imageSize}
+                height={imageSize}
+                className="align-self-center mr-3"
+                src={photoURL}
+                roundedCircle
+                />
+                <Media.Body className="align-middle">
+                    <Alert variant="dark" className="text-left w-50 float-left">{content}</Alert>
+                </Media.Body>
+            </Media>
+        );
+
+    }
+
+    return (htmlContent);
 }
