@@ -90,7 +90,6 @@ export default function Convos() {
 	return (
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
             <Container className="w-75">
-                <Link to='/home'>Home</Link>
                 <h2>Convos</h2>
 				<ConvoContainer loaded = {loaded} convos = {convos} />
             </Container>

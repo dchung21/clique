@@ -46,7 +46,7 @@ function App() {
               <PrivateRoute path = "/profile" component = {Profile} />
 
               <Route path="/">
-                {user ? <Redirect to="/home"/> : <Redirect to="/login"/>}
+                {user ? <Redirect to="/profile"/> : <Redirect to="/login"/>}
               </Route>
 
             </Switch>
