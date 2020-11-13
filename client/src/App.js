@@ -45,7 +45,7 @@ function App() {
               <PrivateRoute path = "/chat" component = {Chat}/>
               <PrivateRoute path = "/profile" component = {Profile} />
 
-              <Route exact path="/">
+              <Route path="/">
                 {user ? <Redirect to="/home"/> : <Redirect to="/login"/>}
               </Route>
 
