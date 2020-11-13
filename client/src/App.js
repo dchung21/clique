@@ -13,7 +13,7 @@ import Match from "./pages/Match.js";
 import Convos from "./pages/Convos.js";
 import Chat from "./pages/Chat.js";
 import Profile from "./pages/Profile.js";
-
+import WebNavBar from './NavBar.js';
 import firebase from 'firebase/app'
 import "firebase/firestore";
 import "firebase/auth";
@@ -26,15 +26,15 @@ function App() {
   const [user] = useAuthState(auth)
 
   return (
-    
-      <Container className = "d-flex align-items-center justify-content-center"
-      style = {{ minHeight: "100vh" }}
+	  <Container style = {{minHeight: "100vh", minWidth: "100vw", margin: 0, padding: 0, border: 0}} > 
+		<WebNavBar />
+      <div className = "d-flex align-items-center justify-content-center"
+      style = {{ minHeight: "80vh" }}
       >
 
         <Router>
           <AuthProvider>
             <Switch>
-              
 
               <Route path = "/signup" component = {Signup} />
               <Route path = "/login" component = {Login} />
@@ -52,7 +52,8 @@ function App() {
             </Switch>
           </AuthProvider>
         </Router>
-    </Container>
+    </div>
+	</Container>
   )
 }
 
