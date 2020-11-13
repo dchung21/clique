@@ -25,6 +25,9 @@ export default function ConvoItem(props) {
                     <p>
                         {props.content}
                     </p>
+                    <p>
+                        {props.timestamp[0]}
+                    </p>
                 </Media.Body>
             </Media>
         </ListGroup.Item>

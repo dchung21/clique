@@ -21,7 +21,7 @@ export default function ConvoContainer(props) {
 			<ListGroup>
 				{console.log("rendering", convos.length, convos)}
 				{convos.map((convo, key) => (
-					<ConvoItem key = {"CI" + key.toString()} imgURL = {convo.imgURL} convoRef = {convo.convoRef} content = {convo.content} count={(key+1).toString()}/>	
+					<ConvoItem key = {"CI" + key.toString()} imgURL = {convo.imgURL} convoRef = {convo.convoRef} content = {convo.content} timestamp = {convo.timestamp} count={(key+1).toString()}/>	
 				))}
 			</ListGroup>
 		);
