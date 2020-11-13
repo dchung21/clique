@@ -1,4 +1,4 @@
-# Project for yhacks 2020
+# Clique: YHacks 2020 Project
 
 ## Dependencies
 NodeJS and NPM
