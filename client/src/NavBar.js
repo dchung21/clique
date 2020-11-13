@@ -10,8 +10,10 @@ export default function SiteNavBar(props) {
       			<Nav.Link href="/convos">Chat</Nav.Link>
       			<Nav.Link href="/profile">Profile</Nav.Link>
 				<Nav.Link href="/match">Match</Nav.Link>
-				<Nav.Link href="/login">Logout</Nav.Link>
     		</Nav>	
+			<Nav className="ml-auto">
+				<Nav.Link href="/login">Logout</Nav.Link>
+			</Nav>
 		</Navbar>
 	)
 }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import {Card, Container, Button, ButtonToolbar} from 'react-bootstrap'
-import HomeIcon from '@material-ui/icons/Home'; 
-import ChatIcon from '@material-ui/icons/Chat';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import ClearIcon from '@material-ui/icons/Clear';
 import firebase from 'firebase/app'; 
 import Image from 'react-bootstrap/Image';
+import Spinner from 'react-bootstrap/Spinner';
 import 'firebase/firestore';
 import "../Button.css"
 
@@ -15,6 +15,7 @@ export default function Match() {
 	const [uid, setUid] = useState("");
 	const [nop, setNop] = useState(false);
 	const [newConvoRef, setNewConvoRef] = useState("");
+	const [loaded, setLoaded] = useState(false);
 
 	let fs = firebase.firestore();
 	let storage = firebase.storage();
@@ -50,6 +51,7 @@ export default function Match() {
 	 }
 
 	const randUser = (userUid, set) => {
+		setLoaded(false);
 		fs.collection("users").get().then(function(snapshot) {
 			let len = snapshot.docs.length;
 			if (set.size < len) {
@@ -64,17 +66,23 @@ export default function Match() {
 				
 				setNewConvoRef("conversations/" + randId + "/messages");
 				storage.ref("pix").child(randUser.uid).getDownloadURL().then(url => {
-					const userObj = {uid: randUser.uid, img: url, bio: randUser.bio};
+					let randBio = "They haven't put a bio yet :("
+					if (randUser.bio != "")
+						randBio = randUser.bio;	
+
+					const userObj = {uid: randUser.uid, img: url, bio: randBio};
 					setUser(userObj);
 				});
 				let clonedMU = new Set(set);
 				clonedMU.add(randUser.uid);
 				setMatchedUsers(clonedMU);
+				setLoaded(true);
 				fs.collection("users").doc(userUid).collection("matchedUsers").doc(randUser.uid).set({uid: randUser.uid});	
 				fs.collection("users").doc(randUser.uid).collection("matchedUsers").doc(userUid).set({uid:randUser.uid});
 			}
 
 			else {
+				setLoaded(true);
 				setNop(true);
 			}
 		});
@@ -106,7 +114,7 @@ export default function Match() {
 		const availMatches = (
 			<div>
 			<Card.Img className="d-flex m-auto mx-auto" 
-				src = {currentUser.img} responsive style = {{ width: "750px", weight: "750px" }} />
+				src = {currentUser.img} responsive style = {{ maxWidth: "60vw", maxHeight: "60vh" }} rounded/>
 				<Card.Body>
 						
 				<Card.Text className="d-flex justify-content-center align-items-center">
@@ -119,15 +127,12 @@ export default function Match() {
         			pathname: '/chat',
                     state: { convoRef: newConvoRef }
                 }}>
-					<Button className = "mx-5" variant="primary" size="lg"><ChatIcon onClick = {makeConvo}/></Button>
+					<Button className = "mx-5" variant="primary" size="lg"><ChatBubbleIcon onClick = {makeConvo}/></Button>
 				</Link>
 
-				<Link to='/home'>
-                	<Button className = "mx-5" variant = "primary" size="lg"><HomeIcon /></Button>
-				</Link>
 
 				<Link to='/match'>
-					<Button className = "mx-5" variant="primary" size="lg"><SkipNextIcon onClick= {() => randUser(uid, matchedUsers)}/></Button>
+					<Button className = "mx-5" variant="primary" size="lg"><ClearIcon onClick= {() => randUser(uid, matchedUsers)}/></Button>
 				</Link>
 				</ButtonToolbar>
 
@@ -138,31 +143,42 @@ export default function Match() {
 		const noMatches = (
 			<div>
 				<Card.Body>
-					<Card.Text className="d-flex justify-content-center align-items-center">
-						<h2>You've matched with every single person!</h2>
+					<Card.Text className="d-flex justify-content-center align-items-center" >
+						<div>
+							<h2>You've matched with every single person!</h2>
+							<p>Go chat someone up! :)</p>
+							<Link to='/convos'>
+								<Button className = "btn btn-info" variant = "primary" size="lg">
+									<ChatBubbleIcon />
+								</Button>	
+							</Link>
+						</div>
 					</Card.Text>
 
-					<Link to='/home'>
-                		<Button className = "mx-5" variant = "primary" size="lg"><HomeIcon /></Button>
-					</Link>
 
 				</Card.Body>
 			</div>
 		);
 
 		let renderedComponent;
-		if (nop) {
-			renderedComponent = noMatches;
+		if (!loaded) {
+			renderedComponent = <> <Spinner animation = "border" variant="primary" /> </>
 		}
+
 		else {
-			renderedComponent = availMatches;
+			if (nop) {
+				renderedComponent = noMatches;
+			}
+			else {
+				renderedComponent = availMatches;
+			}
 		}
 
 
 	return (
 		<div>
 			<header>
-				<Card className = "text-center">
+				<Card border="light" className = "text-center">
 					{renderedComponent}		
 				</Card>
 			</header>
