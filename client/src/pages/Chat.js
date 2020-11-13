@@ -12,6 +12,9 @@ import Media from 'react-bootstrap/Media';
 import Image from 'react-bootstrap/Image';
 import { ListGroup } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 
 
 export default function Chat(props) {
@@ -96,15 +99,21 @@ export default function Chat(props) {
             <Container className="w-75">
                 <Link to='/home'>Home</Link>
                 <h2>Chat</h2>
-                <Card>
+                <Card className="border-light">
                     <Card.Body>
                         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} yourImgUrl={yourImg.url} theirImgUrl={theirImg.url} currentUser={uid}/>)}
                         <div ref={dummy}></div>
                     </Card.Body>
-                    <form onSubmit={sendMessage}>
-                        <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
-                        <button type="submit">Send</button>
-                    </form>
+                    <Form onSubmit={sendMessage} fluid>
+                        <Form.Row className="d-flex justify-content-end w-100 ml-0">
+                            <Col xs={10} className="p-0">
+                                <Form.Control type="message" placeholder="Your message" value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
+                            </Col>
+                            <Col className="p-0">
+                                <Button variant="info" type="submit" className="w-100">Send</Button>
+                            </Col>
+                        </Form.Row>
+                    </Form>
                 </Card>
             </Container>
         </Container>
@@ -156,13 +165,3 @@ function ChatMessage(props) {
 
     return (htmlContent);
 }
-
-{/* <div className={`message ${messageClass}`}>
-<img
-width={64}
-height={64}
-src={photoURL}
-alt="Img"
-/>
-<p>{content}</p>    
-</div> */}
