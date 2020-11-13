@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
-import SiteNavBar from './NavBar.js';
 
 export default function Profile(props) {
 	const [image, setImage] = useState("");
@@ -164,7 +163,6 @@ export default function Profile(props) {
 
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
-			<SiteNavBar />
 			<div className="w-75 h-80">
 				<h3 className="text-center py-3">Welcome user: {uid}</h3>
 				<div className="d-flex justify-content-center">

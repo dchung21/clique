@@ -71,6 +71,7 @@ export default function Match() {
 				clonedMU.add(randUser.uid);
 				setMatchedUsers(clonedMU);
 				fs.collection("users").doc(userUid).collection("matchedUsers").doc(randUser.uid).set({uid: randUser.uid});	
+				fs.collection("users").doc(randUser.uid).collection("matchedUsers").doc(userUid).set({uid:randUser.uid});
 			}
 
 			else {
