@@ -165,13 +165,14 @@ export default function Profile(props) {
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
 			<div className="w-75 h-80">
 				<h3 className="text-center py-3">Welcome!</h3>
-				<h4 className = "text-center">This is your profile. From here, you can change
-					your profile picture as well as the message that is displayed to anyone who matches with you.</h4>
+				<p className = "text-center">This is your profile. From here, you can change
+					your picture as well as the message that is displayed to anyone who matches with you. Make sure your
+					picture is not one of yourself!</p>
 				<div className="d-flex justify-content-center">
 				<OverlayTrigger
 						placement="top"
 						delay={{ show: 250, hide: 400 }}
-						overlay={<Tooltip id="button-tooltip-2">Click here to change your profile picture!</Tooltip>}
+						overlay={<Tooltip id="button-tooltip-2">Click here to change your picture!</Tooltip>}
 					>
 					<Button variant = "" onClick = {handleClick}><Image className="w-50 h-50" src={imageUrl.url}/></Button>
 					</OverlayTrigger>
