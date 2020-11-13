@@ -131,14 +131,14 @@ function ChatMessage(props) {
     let htmlContent;
     if(messageClass == 'sent') {
         htmlContent = (
-            <Media>
-                <Media.Body className="align-middle">
+            <Media className="w-100">
+                <Media.Body className="align-middle w-75">
                     <Alert variant="primary" className="text-right w-50 float-right">{content}</Alert>
                 </Media.Body>
                 <Image
                 width={imageSize}
                 height={imageSize}
-                className="align-self-center ml-3"
+                className="align-self-end ml-3"
                 src={photoURL}
                 roundedCircle
                 />
@@ -146,15 +146,15 @@ function ChatMessage(props) {
         );
     } else {
         htmlContent = (
-            <Media>
+            <Media className="w-100">
                 <Image
                 width={imageSize}
                 height={imageSize}
-                className="align-self-center mr-3"
+                className="align-self-end mr-3"
                 src={photoURL}
                 roundedCircle
                 />
-                <Media.Body className="align-middle">
+                <Media.Body className="align-middle w-75">
                     <Alert variant="dark" className="text-left w-50 float-left">{content}</Alert>
                 </Media.Body>
             </Media>
