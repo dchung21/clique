@@ -41,7 +41,7 @@ export default function Signup() {
 				fs.collection("users").doc(id).set(account);
 				fs.collection("users").doc(id).collection("matchedUsers").doc(id).set ({ uid: id });
 			});
-            history.push("/home");
+            history.push("/profile");
         } catch {
 			
             setError("Failed to create an account!");
