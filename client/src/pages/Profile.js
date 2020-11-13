@@ -139,7 +139,7 @@ export default function Profile(props) {
 
 					// bad, too many bios
 					if(count > 1) {
-						console.log("Wierd, you seem to have more than one bio?");
+						console.log("Weird, you seem to have more than one bio?");
 					} else if (count === 0) { // no bio yet, so add it in
 						console.log("Added bio");
 						bios.add({
