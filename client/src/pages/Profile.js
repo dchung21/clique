@@ -164,12 +164,14 @@ export default function Profile(props) {
 	return (
 		<Container className="d-flex justify-content-center align-items-center min-vh-100">
 			<div className="w-75 h-80">
-				<h3 className="text-center py-3">Welcome user: {uid}</h3>
+				<h3 className="text-center py-3">Welcome!</h3>
+				<h4 className = "text-center">This is your profile. From here, you can change
+					your profile picture as well as the message that is displayed to anyone who matches with you.</h4>
 				<div className="d-flex justify-content-center">
 				<OverlayTrigger
 						placement="top"
 						delay={{ show: 250, hide: 400 }}
-						overlay={<Tooltip id="button-tooltip-2">click to change profile</Tooltip>}
+						overlay={<Tooltip id="button-tooltip-2">Click here to change your profile picture!</Tooltip>}
 					>
 					<Button variant = "" onClick = {handleClick}><Image className="w-50 h-50" src={imageUrl.url}/></Button>
 					</OverlayTrigger>
@@ -183,11 +185,11 @@ export default function Profile(props) {
 				<h4 className="text-center py-3">{displayBio}</h4>
 				<Form onSubmit={handleBioUpload} className="py-3">
 					<Form.Group controlId="formTextarea">
-						<Form.Label>Write something that describes you (10 words max)</Form.Label>
-						<Form.Control as="textarea" placeholder="Your 10 words!" rows={3} value={bio} onChange={handleTextChange} />
+						<Form.Label><h4>Describe yourself in ten words or less!</h4></Form.Label>
+						<Form.Control as="textarea" placeholder="Your ten words!" rows={3} value={bio} onChange={handleTextChange} />
 					</Form.Group>
 					<Button variant="primary" type="submit">
-						Submit
+						Update Message
 					</Button>
 				</Form>
 			</div>
